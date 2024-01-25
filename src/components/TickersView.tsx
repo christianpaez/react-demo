@@ -1,15 +1,16 @@
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getTickers } from "../app/redux/tickerSlice";
 import TickersTable from "./TickersTable";
+import { fetchTickers } from "../app/redux/tickerSlice";
+import { AppDispatch } from "../app/redux/store";
 
 function TickersView() {
     const [searchText, setSearchText] = useState<string>("")
     const isInputValid = useMemo(() => searchText.trim() !== "", [searchText])
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     const searchTickers = () => {
-        dispatch(getTickers())
+        dispatch(fetchTickers(searchText));
     }
 
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
