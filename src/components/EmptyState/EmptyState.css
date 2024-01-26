@@ -1,0 +1,11 @@
+.empty-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #555;
+  font-size: 1.2em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 12px;
+  margin: 18px;
+}
