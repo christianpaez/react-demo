@@ -1,6 +1,6 @@
 import React from 'react';
 import TickersView from './components/TickersView';
-import store from './app/redux/store'
+import store from './app/redux/Store'
 import { Provider } from 'react-redux'
 
 function App() {

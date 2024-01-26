@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import tickerReducer from './tickerSlice'
+import tickerReducer from './TickerSlice'
 import { useDispatch } from 'react-redux'
 
 const store = configureStore({

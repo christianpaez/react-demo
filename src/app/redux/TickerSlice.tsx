@@ -1,25 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios';
-
-export interface TickerState {
-    tickers: [];
-    loading: boolean;
-    error: string | null;
-
-}
-
-export interface TickerSlice {
-    ticker: TickerState
-    
-}
+import { apiUrl } from './constants';
+import { TickerState } from './types';
 
 export const fetchTickers = createAsyncThunk('ticker/fetchTickers', async (key: string) => {
     try {
-        const apiUrl: string = process.env.REACT_APP_API_URL || ''
         const response = await axios.get(`${apiUrl}/tickers`, { params: { key } });
         return response.data;
     } catch (e) {
         const error = e as AxiosError
+        throw error.response ? error.response.data : error.message;
+    }
+});
+
+export const fetchTickersError = createAsyncThunk('ticker/fetchTickers', async () => {
+    try {
+        const response = await axios.get(`${apiUrl}/invalid`);
+        return response.data;
+    } catch (e) {
+        const error = e as AxiosError
+        console.log(error.response?.data)
         throw error.response ? error.response.data : error.message;
     }
 });
@@ -44,9 +44,9 @@ export const tickerSlice = createSlice({
                     state.loading = false;
                     state.tickers = action.payload;
                 })
-                .addCase(fetchTickers.rejected, (state, action) => {
+                .addCase(fetchTickers.rejected, (state) => {
                     state.loading = false;
-                    state.error = action.error.message || 'An error occurred';
+                    state.error = 'An error occurred!';
                 });
         
     }
