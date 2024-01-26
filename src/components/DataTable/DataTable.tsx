@@ -1,5 +1,6 @@
 import React from 'react';
-import { TableData } from '../app/redux/types';
+import { TableData } from '../../app/redux/types';
+import './DataTable.css'
 
 interface DataTableProps {
     data: TableData;
